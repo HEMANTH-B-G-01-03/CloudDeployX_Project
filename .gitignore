@@ -1,0 +1,24 @@
+# Node
+node_modules/
+npm-debug.log
+
+# React Build
+build/
+
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Environment Variables
+.env
+
+# Mongo
+mongodb-data/
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
