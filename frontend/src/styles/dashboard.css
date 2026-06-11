@@ -1,0 +1,47 @@
+body {
+  background: #0f172a;
+  color: white;
+}
+
+.dashboard-container {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: #111827;
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+}
+
+.stat-card {
+  background: #1e293b;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.card {
+  background: #1e293b;
+  color: white;
+  border: none;
+}
+
+.timeline li {
+  margin-bottom: 15px;
+}
