@@ -22,3 +22,6 @@ mongodb-data/
 # OS
 .DS_Store
 Thumbs.db
+
+/atlas-credentials.env
+
