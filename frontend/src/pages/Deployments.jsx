@@ -90,10 +90,11 @@
 // }
 
 // export default Deployments;
-
 import React, { useEffect, useState } from "react";
 import API from "../services/api";
 import DeploymentForm from "../components/DeploymentForm";
+import Sidebar from "../components/Sidebar";
+import "../styles/dashboard.css";
 
 function Deployments() {
   const [deployments, setDeployments] = useState([]);
@@ -112,77 +113,87 @@ function Deployments() {
   }, []);
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        padding: "30px",
-        backgroundColor: "#0f172a",
-        color: "white",
-      }}
-    >
-      <h1>☁️ CloudDeployX Deployments</h1>
+    <div className="dashboard-container">
+      {/* Sidebar */}
+      <Sidebar />
 
+      {/* Main Content */}
       <div
+        className="main-content"
         style={{
-          background: "#1e293b",
-          padding: "20px",
-          borderRadius: "10px",
-          marginBottom: "30px",
+          backgroundColor: "#0f172a",
+          minHeight: "100vh",
+          color: "white",
+          padding: "30px",
+          flex: 1,
         }}
       >
-        <h2>🚀 Create Deployment</h2>
+        <h1>☁️ CloudDeployX Deployments</h1>
 
-        <DeploymentForm
-          onDeploymentCreated={fetchDeployments}
-        />
+        {/* Deployment Form */}
+        <div
+          style={{
+            background: "#1e293b",
+            padding: "20px",
+            borderRadius: "10px",
+            marginBottom: "30px",
+          }}
+        >
+          <h2>🚀 Create Deployment</h2>
+
+          <DeploymentForm
+            onDeploymentCreated={fetchDeployments}
+          />
+        </div>
+
+        {/* Deployment List */}
+        <h2>📦 Deployment List</h2>
+
+        {deployments.length === 0 ? (
+          <p>No deployments found.</p>
+        ) : (
+          deployments.map((deployment) => (
+            <div
+              key={deployment._id}
+              style={{
+                background: "#1e293b",
+                padding: "20px",
+                marginBottom: "15px",
+                borderRadius: "10px",
+                border: "1px solid #334155",
+                boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+              }}
+            >
+              <h3>{deployment.appName}</h3>
+
+              <p>
+                <strong>Docker Image:</strong>{" "}
+                {deployment.dockerImage}
+              </p>
+
+              <p>
+                <strong>Replicas:</strong>{" "}
+                {deployment.replicas}
+              </p>
+
+              <p>
+                <strong>Status:</strong>{" "}
+                <span
+                  style={{
+                    color:
+                      deployment.status === "Running"
+                        ? "#22c55e"
+                        : "#ef4444",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {deployment.status}
+                </span>
+              </p>
+            </div>
+          ))
+        )}
       </div>
-
-      <h2>📦 Deployment List</h2>
-
-      {deployments.length === 0 ? (
-        <p>No deployments found.</p>
-      ) : (
-        deployments.map((deployment) => (
-          <div
-            key={deployment._id}
-            style={{
-              background: "#1e293b",
-              padding: "20px",
-              marginBottom: "15px",
-              borderRadius: "10px",
-              border: "1px solid #334155",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
-            }}
-          >
-            <h3>{deployment.appName}</h3>
-
-            <p>
-              <strong>Docker Image:</strong>{" "}
-              {deployment.dockerImage}
-            </p>
-
-            <p>
-              <strong>Replicas:</strong>{" "}
-              {deployment.replicas}
-            </p>
-
-            <p>
-              <strong>Status:</strong>{" "}
-              <span
-                style={{
-                  color:
-                    deployment.status === "Running"
-                      ? "#22c55e"
-                      : "#ef4444",
-                  fontWeight: "bold",
-                }}
-              >
-                {deployment.status}
-              </span>
-            </p>
-          </div>
-        ))
-      )}
     </div>
   );
 }
