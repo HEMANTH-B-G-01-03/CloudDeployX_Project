@@ -29,7 +29,7 @@ function DockerImages() {
 
                 <h1>📦 Docker Images</h1>
 
-                <table
+                {/* <table
                     style={{
                         width: "100%",
                         borderCollapse: "collapse",
@@ -77,7 +77,137 @@ function DockerImages() {
 
                     </tbody>
 
-                </table>
+                </table> */}
+
+
+                <div
+    style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+        gap: "25px",
+        marginTop: "30px",
+    }}
+>
+    {images.map((img) => (
+
+        <div
+            key={img.image_id}
+            style={{
+                background: "#1e293b",
+                borderRadius: "15px",
+                padding: "20px",
+                boxShadow: "0 8px 20px rgba(0,0,0,0.35)",
+                transition: "0.3s",
+                border: "1px solid #334155",
+                cursor: "pointer"
+            }}
+            onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-6px)";
+                e.currentTarget.style.border = "1px solid #3b82f6";
+            }}
+            onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0px)";
+                e.currentTarget.style.border = "1px solid #334155";
+            }}
+        >
+
+            <h2
+                style={{
+                    marginBottom: "18px",
+                    color: "#60a5fa"
+                }}
+            >
+                📦 {img.repository}
+            </h2>
+
+            <p>
+                <strong>🏷 Tag</strong>
+            </p>
+
+            <span
+                style={{
+                    background: "#2563eb",
+                    padding: "6px 14px",
+                    borderRadius: "20px",
+                    display: "inline-block",
+                    marginBottom: "18px"
+                }}
+            >
+                {img.tag}
+            </span>
+
+            <p>
+                <strong>🆔 Image ID</strong>
+            </p>
+
+            <code
+                style={{
+                    background: "#0f172a",
+                    padding: "8px 12px",
+                    borderRadius: "8px",
+                    display: "block",
+                    marginBottom: "18px",
+                    color: "#f8fafc"
+                }}
+            >
+                {img.image_id}
+            </code>
+
+            <p>
+                <strong>💾 Size</strong>
+            </p>
+
+            <span
+                style={{
+                    background: "#16a34a",
+                    padding: "6px 14px",
+                    borderRadius: "20px"
+                }}
+            >
+                {img.size}
+            </span>
+
+            <hr
+                style={{
+                    margin: "20px 0",
+                    borderColor: "#334155"
+                }}
+            />
+
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center"
+                }}
+            >
+                <span
+                    style={{
+                        color: "#22c55e",
+                        fontWeight: "bold"
+                    }}
+                >
+                    🟢 Available
+                </span>
+
+                <button
+                    style={{
+                        background: "#2563eb",
+                        border: "none",
+                        padding: "8px 18px",
+                        color: "white",
+                        borderRadius: "8px",
+                        cursor: "pointer"
+                    }}
+                >
+                    View
+                </button>
+            </div>
+
+        </div>
+
+    ))}
+</div>
 
             </div>
 
