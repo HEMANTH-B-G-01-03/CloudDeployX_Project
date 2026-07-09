@@ -18,6 +18,52 @@
 #         "returncode": result.returncode
 #     })
 
+
+
+
+
+
+
+
+
+# from flask import Blueprint, jsonify
+# import subprocess
+
+# docker_bp = Blueprint("docker", __name__)
+
+# @docker_bp.route("/docker-images", methods=["GET"])
+# def get_docker_images():
+#     try:
+#         result = subprocess.run(
+#             [
+#                 "docker",
+#                 "images",
+#                 "--format",
+#                 "{{.Repository}}|{{.Tag}}|{{.ID}}|{{.Size}}"
+#             ],
+#             capture_output=True,
+#             text=True
+#         )
+
+#         images = []
+
+#         for line in result.stdout.strip().split("\n"):
+#             if line:
+#                 repo, tag, image_id, size = line.split("|")
+#                 images.append({
+#                     "repository": repo,
+#                     "tag": tag,
+#                     "image_id": image_id,
+#                     "size": size
+#                 })
+
+#         return jsonify(images)
+
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
+
+
+
 from flask import Blueprint, jsonify
 import subprocess
 
@@ -25,7 +71,9 @@ docker_bp = Blueprint("docker", __name__)
 
 @docker_bp.route("/docker-images", methods=["GET"])
 def get_docker_images():
+
     try:
+
         result = subprocess.run(
             [
                 "docker",
@@ -37,19 +85,31 @@ def get_docker_images():
             text=True
         )
 
-        images = []
+        if result.returncode != 0:
+            return jsonify({"error": result.stderr}),500
+
+        images=[]
 
         for line in result.stdout.strip().split("\n"):
+
             if line:
-                repo, tag, image_id, size = line.split("|")
+
+                repo,tag,image_id,size=line.split("|")
+
                 images.append({
-                    "repository": repo,
-                    "tag": tag,
-                    "image_id": image_id,
-                    "size": size
+
+                    "repository":repo,
+
+                    "tag":tag,
+
+                    "image_id":image_id,
+
+                    "size":size
+
                 })
 
         return jsonify(images)
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+
+        return jsonify({"error":str(e)}),500
