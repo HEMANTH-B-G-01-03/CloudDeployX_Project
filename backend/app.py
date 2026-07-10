@@ -39,7 +39,9 @@ def home():
     return {"message": "CloudDeployX Backend Running Successfully"}
 
 # if __name__ == "__main__":
-#     app.run(debug=True)            <- these for local 
+#     app.run(debug=True)           
+    
+    #  <- these for local 
 
 if __name__ == "__main__":
     app.run(

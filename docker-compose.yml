@@ -47,9 +47,11 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-    env_file:
-      - ./backend/.env
-
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/clouddeployx
+  #   env_file:
+  #     - ./backend/.env
+  # #the above 2 line is for aws 
 
   frontend:
     build: ./frontend
